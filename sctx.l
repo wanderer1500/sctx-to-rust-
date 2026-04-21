@@ -8,12 +8,13 @@
 %option yylineno
 
 %%
+
 "scchart"       { return SCCHART; }
 "input"         { return INPUT; }
 "output"        { return OUTPUT; }
 "bool"          { return BOOL; }
 "int"           { return INT; }
-"initial"       { return TOK_INITIAL; } 
+"initial"       { return TOK_INITIAL; }
 "final"         { return FINAL; }
 "state"         { return STATE; }
 "region"        { return REGION; }
@@ -37,17 +38,30 @@
 [a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return ID; }
 [0-9]+                  { yylval.num = atoi(yytext); return NUMBER; }
 
-"=="            { return EQEQ; }
-"="             { return EQ; }
-"++"            { return INC; }
+"=="    { return EQEQ; }
+"!="    { return NEQ; }
+">="    { return GEQ; }
+"<="    { return LEQ; }
+"++"    { return INC; }
+"--"    { return DEC; }
+"&&"    { return AND; }
+"||"    { return OR; }
 
-"{"             { return LBRACE; }
-"}"             { return RBRACE; }
-":"             { return COLON; }
-","             { return COMMA; }
+"="     { return EQ; }
+">"     { return GT; }
+"<"     { return LT; }
+"!"     { return NOT; }
 
-[ \t\r\n]+      { /* ignore whitespace */ }
-"//".* { /* ignore line comments */ }
-"["[^\]]*"]"    { /* ignore tags */ }
-.               { return yytext[0]; }
+"{"     { return LBRACE; }
+"}"     { return RBRACE; }
+":"     { return COLON; }
+","     { return COMMA; }
+";"     { return SEMI; }
+
+[ \t\r\n]+          { }
+"//".* { }
+"["[^\]]*"]"        { }
+
+.       { return yytext[0]; }
+
 %%
